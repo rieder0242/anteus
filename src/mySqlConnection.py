@@ -32,7 +32,8 @@ class MySqlConnection:
         with open(name + '.csv', mode='w', newline='') as employee_file:
             csv_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             cursor = self.cnx.cursor()
-            cursor.execute("SELECT * FROM %s;", [name])
+            cursor.execute("SELECT * FROM "+name+";")
+            csv_writer.writerow([i[0] for i in cursor.description])
             for row in cursor:
                 csv_writer.writerow(row)
 
