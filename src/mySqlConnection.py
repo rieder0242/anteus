@@ -19,7 +19,7 @@ class MySqlConnection:
         print('get tables')
         cursor = self.cnx.cursor()
         cursor.execute("SELECT TABLE_NAME FROM information_schema.tables where TABLE_SCHEMA = %s;",
-                         [self.conf["database"]])
+                       [self.conf["database"]])
         result = cursor.fetchall()
         ret = [];
         for x in result:
@@ -29,17 +29,15 @@ class MySqlConnection:
         return ret
 
     def save(self, name):
-        with open(name+'.csv', mode='w',newline='') as employee_file:
+        with open(name + '.csv', mode='w', newline='') as employee_file:
             csv_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
             cursor = self.cnx.cursor()
-            cursor.execute("SELECT * FROM "+name+";")
+            cursor.execute("SELECT * FROM " + name + ";")
 
             csv_writer.writerow(['Erica Mc\'Rely', 'IT', 'March'])
             for row in cursor:
                 csv_writer.writerow(row)
-
-
 
     def close(self):
         self.cnx.close()
