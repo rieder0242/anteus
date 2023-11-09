@@ -24,10 +24,9 @@ if __name__ == '__main__':
     tables = con.get_tables()
     app = App()
     selectedTables = app.select_tables(tables)
-
-    for table in selectedTables:
-        print(table)
-        con.save(table)
-
+    if selectedTables!=None:
+        for table in selectedTables:
+            print(table)
+            con.save(table)
     con.close()
     exit(0)
