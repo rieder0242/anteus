@@ -2,10 +2,15 @@ import wx
 import wx.lib.scrolledpanel as scrolled
 
 
-def err(message):
+def err_msg(message):
+    """
+    Hibaüzenetet jelenít meg
+    :param message: Az üzenet szövge
+    :return: Void
+    """
     app = wx.App(0)
     resp = wx.MessageBox(message, 'Error',
-                         wx.OK | wx.ICON_WARNING)
+                         wx.OK | wx.ICON_ERROR)
 
 
 class App:
@@ -13,7 +18,11 @@ class App:
         self.app = None
         self.ret = None
 
-    def select_tables(self, tables):
+    def select_tables(self, tables) -> list[str]:
+        """
+        Megnyítja az ablakot amiben kiválogathatjuk mely táblákat exportáljuk
+        """
+
         app = wx.App(0)
         self.app = app
         self.ret = None
@@ -29,6 +38,9 @@ class App:
 
 
 class Layout(wx.Frame):
+    """
+    A táblaválogató layout-ja és kontrolja
+    """
 
     def __init__(self, parent, title, tables, app):
         super(Layout, self).__init__(parent, title=title, size=(500, 300))
@@ -38,10 +50,15 @@ class Layout(wx.Frame):
         self.checkBoxes = []
 
         self.init_ui()
+        self.save.Bind(wx.EVT_BUTTON, self.on_clicked)
         self.Centre()
         self.Show()
 
     def init_ui(self):
+        """
+        Itt építjük a layout-ot
+        :return:
+        """
         p_out = wx.Panel(self)
 
         vert = wx.BoxSizer(wx.VERTICAL)
@@ -67,11 +84,15 @@ class Layout(wx.Frame):
         vert.Add(p_in, 1, wx.EXPAND, ).SetMinSize(500, 270)
 
         self.save = wx.Button(p_out, label="Save")
-        self.save.Bind(wx.EVT_BUTTON, self.on_clicked)
+
         vert.Add(self.save, 0, wx.EXPAND)
         p_out.SetSizer(vert)
 
     def on_clicked(self, event):
+        """
+        A save gomb megnyomása
+        :param event: A klikk esemény
+        """
         ret = []
         for (cb, table) in self.checkBoxes:
             if cb.GetValue():
