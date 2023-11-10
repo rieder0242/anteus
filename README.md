@@ -35,6 +35,14 @@ program célja és beüzemelésének módja közérthető, megismételhető legy
 # Install
 
 ```sh
+pip install -r requirements.txt
+```
+
+vagy
+
+```sh
+python -m venv .
+
 venv\Scripts\pip install pyyaml
 venv\Scripts\pip install mysql-connector-python
 venv\Scripts\pip install wxPython
@@ -43,7 +51,7 @@ venv\Scripts\pip install wxPython
 # Run
 
 ```sh
-python.exe src\main.py
+python src\main.py
 ```
 
 # Működés
