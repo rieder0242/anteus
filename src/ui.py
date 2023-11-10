@@ -2,7 +2,17 @@ import wx
 import wx.lib.scrolledpanel as scrolled
 
 
+def err(message):
+    app = wx.App(0)
+    resp = wx.MessageBox(message, 'Error',
+                         wx.OK | wx.ICON_WARNING)
+
+
 class App:
+    def __init__(self):
+        self.app = None
+        self.ret = None
+
     def select_tables(self, tables):
         app = wx.App(0)
         self.app = app
